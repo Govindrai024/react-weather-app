@@ -1,49 +1,87 @@
+import React,{ useState,useEffect } from 'react'
 import "../Weather/weather.css"
 
-import React from 'react'
+export const WeatherCard = ({ 
+    temp,
+    humidity,
+    pressure,
+    weatherMood,
+    name,
+    speed,
+    country,
+    sunset,
+ }) => {
+    const [weatherState, setWeatherState] = useState("")
 
-export const WeatherCard = () => {
+    useEffect(() => {
+        if(weatherMood){
+            switch (weatherMood) {
+                case "Clouds": 
+                    setWeatherState("wi-day-cloudy");    
+                    break;
+                case "Haze": 
+                    setWeatherState("wi-fog");    
+                    break;
+                case "Clear": 
+                    setWeatherState("wi-day-sunny");    
+                    break;
+                case "Mist": 
+                    setWeatherState("wi-dust");    
+                    break;
+
+                default:
+                    setWeatherState("wi-day-sunny");    
+                    break;
+            }
+        }
+    }, [weatherMood])
+
+    //Converting seconds into time
+    let sec = sunset;
+    let date = new Date(sec * 1000);
+    let time = `${date.getHours()}:${date.getMinutes()}`
     return (
         <>
             <article className="weather-container">
                        <div className="weather-img">
-                         <i className="wi wi-day-sunny"></i>
+                         <i className={`wi ${weatherState}`}></i>
                         </div> 
 
                         {/* weather information */}
                         <div className="weather-info-container-1">
                                 <div className="weather-temp">
-                                        <span>20.5 </span>
+                                        <span>{temp}&deg;</span>
                                 </div>
+
                                 <div className="weather-Description">
-                                    <div className="weather-condition">Sunny</div>
-                                    <div className="place" >Dehli, IND</div>
+                                    <div className="weather-condition">{weatherMood}</div>
+                                    <div className="place" >{name}, {country}</div>
                                 </div>      
                         </div>
 
                                 {/*For date  */}
                                 <div className="myDate"> {new Date().toLocaleString()}</div>
 
-                   
+                            {/* Four column section  */}
                                 <div className="weather-info-container-2">
                                  <div className="weather-temp-2">
                                      <div className="two-sided-section"> 
                                         <p>
-                                            <i className={"wi wi-day-sunny"}></i>
+                                            <i className={"wi wi-sunset"}></i>
                                         </p>
                                         <p className="extra-info-leftSide">
-                                           10:11 PM <br />
-                                          Humidity
+                                           {time} <br />
+                                         Sunset
                                         </p>
                                      </div>
 
                                      {/* Humiity */}
                                      <div className="two-sided-section"> 
                                         <p>
-                                            <i className={"wi wi-day-sunny"}></i>
+                                            <i className={"wi wi-humidity"}></i>
                                         </p>
                                         <p className="extra-info-leftSide">
-                                           10:11 PM <br />
+                                           {humidity} <br />
                                           Humidity
                                         </p>
                                      </div>     
@@ -53,21 +91,21 @@ export const WeatherCard = () => {
                                 <div className="weather-extra-info">
                                     <div className="two-sided-section"> 
                                         <p>
-                                            <i className={"wi wi-day-sunny"}></i>
+                                            <i className={"wi wi-rain"}></i>
                                         </p>
                                         <p className="extra-info-leftSide">
-                                           10:11 PM <br />
-                                          Humidity
+                                           {pressure} <br />
+                                          Pressure
                                         </p>
                                      </div>  
 
                                      <div className="two-sided-section"> 
                                         <p>
-                                            <i className={"wi wi-day-sunny"}></i>
+                                            <i className={"wi wi-strong-wind"}></i>
                                         </p>
                                         <p className="extra-info-leftSide">
-                                           10:11 PM <br />
-                                          Humidity
+                                           {speed} <br />
+                                          Speed
                                         </p>
                                      </div>  
                                 </div>
