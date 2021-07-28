@@ -1,3 +1,5 @@
+# It is a simple weather application with reactJS hooks and fetch data from API, which real world and up to date.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
